@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lightnovelcrawler.LNController">
+   <children>
+      <Button fx:id="b" layoutX="20.0" layoutY="22.0" mnemonicParsing="false" onAction="#a" prefHeight="76.0" prefWidth="166.0" text="Button" />
+      <TextArea fx:id="ta" layoutX="202.0" layoutY="22.0" prefHeight="567.0" prefWidth="726.0" />
+   </children>
+</Pane>
