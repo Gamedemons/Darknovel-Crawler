@@ -1,31 +1,93 @@
 package com.example.lightnovelcrawler;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 
 public class LNController {
+    @FXML
+    private Button help;
+
+    @FXML
+    private Button settings;
+
     @FXML
     private TextArea console;
 
     @FXML
-    private TextField outputLoc;
+    private ChoiceBox commandBox;
 
     @FXML
-    private TextField urlBox;
+    private TextField urlField;
+
+    @FXML
+    private TextField outputField;
+
+    @FXML
+    private Button folderSelector;
+
+    @FXML
+    private ChoiceBox formatBox;
+
+    @FXML
+    private CheckBox loginfieldCheck;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private CheckBox selectorCheck;
+
+    @FXML
+    private ComboBox selectorBox;
+
+    @FXML
+    private TextField selectorField;
+
+    @FXML
+    private CheckBox packCheck;
+
+    @FXML
+    private RadioButton singlefileRadio;
+
+    @FXML
+    private RadioButton multiplefileRadio;
+
+    @FXML
+    private CheckBox overwriteCheck;
+
+    @FXML
+    private RadioButton replacefolderRadio;
+
+    @FXML
+    private RadioButton ignorefolderRadio;
+
+    @FXML
+    private CheckBox ofilenameCheck;
+
+    @FXML
+    private TextField ofilenameField;
+
+    @FXML
+    private RadioButton addsourceRadio;
+
+    @FXML
+    private Button runCommand;
 
     @FXML
     private Label messageBar;
 
+
+
     @FXML
-    public void a() {
-        String url = urlBox.getText();
-        String loc = outputLoc.getText();
+    public void start() {
+        String url = urlField.getText();
+        String loc = outputField.getText();
 
         Runnable task = new Runnable() {
             @Override
@@ -57,19 +119,6 @@ public class LNController {
                         }
                     };
                     new Thread(re).start();
-
-
-
-//                    StringBuilder strBuild = new StringBuilder();
-//                    try (BufferedReader processOutputReader = new BufferedReader(new InputStreamReader(processDuration.getInputStream(), Charset.defaultCharset()))) {
-//                        String line;
-//                        while ((line = processOutputReader.readLine()) != null) {
-//                            strBuild.append(line).append(System.lineSeparator());
-//                        }
-//                        processDuration.waitFor();
-//                    }
-//                    String outputJson = strBuild.toString().trim();
-//                    ta.setText(outputJson);
 
                 }catch (Exception e){
                     messageBar.setText(e.getMessage());

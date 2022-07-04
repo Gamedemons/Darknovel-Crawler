@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="904.0" prefWidth="1458.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lightnovelcrawler.LNController">
    <children>
-      <Button fx:id="b" layoutX="17.0" layoutY="830.0" mnemonicParsing="false" onAction="#a" prefHeight="31.0" prefWidth="589.0" text="Initiate Command" />
+      <Button fx:id="runCommand" layoutX="17.0" layoutY="830.0" mnemonicParsing="false" onAction="#start" prefHeight="31.0" prefWidth="589.0" text="Initiate Command" />
       <TextArea fx:id="console" layoutX="625.0" layoutY="91.0" prefHeight="770.0" prefWidth="816.0" />
       <TextField fx:id="urlField" layoutX="17.0" layoutY="144.0" prefHeight="31.0" prefWidth="589.0" promptText="Enter the link here" text="https://www.foxaholic.com/novel/ill-live-my-life-surrounded-by-monsters/" />
       <TextField fx:id="outputField" editable="false" layoutX="17.0" layoutY="196.0" prefHeight="31.0" prefWidth="535.0" promptText="Click on &quot;...&quot; to select output folder" text="D:\Novels\ada" />
@@ -52,8 +52,8 @@
       </ChoiceBox>
       <Pane layoutX="17.0" layoutY="304.0" prefHeight="96.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <TextField layoutX="14.0" layoutY="16.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your email here" />
-            <PasswordField layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your password here" />
+            <TextField fx:id="emailField" layoutX="14.0" layoutY="16.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your email here" />
+            <PasswordField fx:id="passwordField" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your password here" />
          </children>
       </Pane>
       <Button layoutX="482.0" layoutY="288.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" style="-fx-background-color: #F4F4F4;" text="Login Field" />
@@ -108,6 +108,7 @@
          </children></Pane>
       <Button layoutX="441.0" layoutY="690.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #F4F4F4;" text="Output File Name" />
       <CheckBox fx:id="ofilenameCheck" layoutX="420.0" layoutY="695.0" mnemonicParsing="false" />
-      <RadioButton layoutX="17.0" layoutY="783.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="589.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Add Source URL at the end of file" />
+      <RadioButton fx:id="addsourceRadio" layoutX="17.0" layoutY="783.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="589.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Add Source URL at the end of file" />
+      <Button layoutX="1224.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
    </children>
 </Pane>
