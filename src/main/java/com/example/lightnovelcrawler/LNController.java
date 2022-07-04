@@ -3,120 +3,83 @@ package com.example.lightnovelcrawler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-
-import java.io.*;
+import javafx.scene.control.TextField;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 public class LNController {
     @FXML
-    private Label welcomeText;
+    private TextArea console;
 
     @FXML
-    private TextArea ta;
+    private TextField outputLoc;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private TextField urlBox;
 
     @FXML
-    public void a() throws IOException {
-//        try{
-//            ProcessBuilder builder = new ProcessBuilder(
-//                    "cmd.exe", "/c", "cd \"C:\\Program Files\\");
-//            builder.redirectErrorStream(true);
-//            Process p = builder.start();
-//            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//            String line;
-//            while (true) {
-//                line = r.readLine();
-//                if (line == null) { break; }
-//                System.out.println(line);
-//            }
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-        try{
-//            ProcessBuilder builder = new ProcessBuilder(
-//                    "cmd.exe", "/c", "cd \"C:\\Users\\GameDemons\\IdeaProjects\\Lightnovel Crawler\\src\\main\\java\\com\\example\\lightnovelcrawler\" && dir");
-//            builder.redirectErrorStream(true);
-//            ProcessBuilder builder2 = new ProcessBuilder(
-//                    "cmd.exe","lncrawl","-h");
-//            Process p = builder.start();
-//            builder2.redirectErrorStream(true);
-//            Process p2 = builder2.start();
-//            BufferedReader r = new BufferedReader(new InputStreamReader(p2.getInputStream()));
-//            String line;
-//            String a = "";
-//            while (true) {
-//                line = r.readLine();
-//                if (line == null) { break; }
-//                a = a + line + "\n";
-//                System.out.println(line);
-//            }
+    private Label messageBar;
+
+    @FXML
+    public void a() {
+        String url = urlBox.getText();
+        String loc = outputLoc.getText();
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Process processDuration = new ProcessBuilder("cmd.exe", "/c", "cd \"C:\\Users\\GameDemons\\IdeaProjects\\Lightnovel Crawler\\src\\main\\java\\com\\example\\lightnovelcrawler\"","&lncrawl -s " + url + " -o \"" + loc + "\" --all -i --format text --suppress").redirectErrorStream(true).start();
+
+
+                    Runnable re = new Runnable() {
+                        @Override
+                        public void run() {
+                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(processDuration.getInputStream()));
+                            String line = "";
+                            String b = "";
+                            while (true){
+                                try {
+                                    if (!((line = bufferedReader.readLine()) != null)) break;
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                b+=line+"\n";
+                                console.setText(b);
+                            }
+                            try {
+                                int exitValue = processDuration.waitFor();
+                            } catch (Exception e) {
+                                messageBar.setText(e.getMessage());
+                            }
+                        }
+                    };
+                    new Thread(re).start();
 
 
 
-
-
-
-//            String[] cmd = {"cmd.exe", "/c", "cd \"C:\\Users\\GameDemons\\IdeaProjects\\Lightnovel Crawler\\src\\main\\java\\com\\example\\lightnovelcrawler\"","lncrawl","-h"};
-//            ProcessBuilder p1 = new ProcessBuilder(cmd);
-//            p1.redirectErrorStream(true);
-//            Process p = p1.start();
-//            InputStreamReader r = new InputStreamReader(p.getInputStream());
-//            BufferedReader br = new BufferedReader(r);
-//
-//            String line;
-//            while ((line = br.readLine()) != null){
-//                System.out.println(line);
-//            }
-//
-//            p.waitFor();
-
-
-
-
-
-
-            Process processDuration = new ProcessBuilder("cmd.exe", "/c", "cd \"C:\\Users\\GameDemons\\IdeaProjects\\Lightnovel Crawler\\src\\main\\java\\com\\example\\lightnovelcrawler\"","&lncrawl -h").redirectErrorStream(true).start();
-            StringBuilder strBuild = new StringBuilder();
-            try (BufferedReader processOutputReader = new BufferedReader(new InputStreamReader(processDuration.getInputStream(), Charset.defaultCharset()));) {
-                String line = "";
-                while ((line = processOutputReader.readLine()) != null) {
-                    strBuild.append(line + System.lineSeparator());
-                }
-                processDuration.waitFor();
-            }
-            String outputJson = strBuild.toString().trim();
-            ta.setText(outputJson);
-//            final InputStream stream = p.getInputStream();
-//            new Thread(new Runnable() {
-//                public void run() {
-//                    BufferedReader reader = null;
-//                    try {
-//                        reader = new BufferedReader(new InputStreamReader(stream));
-//                        String line = null;
-//                        while ((line = reader.readLine()) != null) {
-//                            System.out.println(line);
+//                    StringBuilder strBuild = new StringBuilder();
+//                    try (BufferedReader processOutputReader = new BufferedReader(new InputStreamReader(processDuration.getInputStream(), Charset.defaultCharset()))) {
+//                        String line;
+//                        while ((line = processOutputReader.readLine()) != null) {
+//                            strBuild.append(line).append(System.lineSeparator());
 //                        }
-//                    } catch (Exception e) {
-//                        System.out.println(e.getMessage());
-//                    } finally {
-//                        if (reader != null) {
-//                            try {
-//                                reader.close();
-//                            } catch (IOException e) {
-//                                // ignore
-//                            }
-//                        }
+//                        processDuration.waitFor();
 //                    }
-//                }
-//            }).start();
-//            ta.setText();
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+//                    String outputJson = strBuild.toString().trim();
+//                    ta.setText(outputJson);
+
+                }catch (Exception e){
+                    messageBar.setText(e.getMessage());
+                }
+            }
+        };
+        new Thread(task).start();
+
+
+
 
 
     }
