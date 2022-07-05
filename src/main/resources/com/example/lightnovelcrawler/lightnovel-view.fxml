@@ -6,25 +6,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="904.0" prefWidth="1458.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lightnovelcrawler.LNController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="912.0" prefWidth="1458.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lightnovelcrawler.LNController">
    <children>
-      <Button fx:id="runCommand" layoutX="17.0" layoutY="830.0" mnemonicParsing="false" onAction="#start" prefHeight="31.0" prefWidth="589.0" text="Initiate Command" />
+
+
+<!--Header-->
+      <Label alignment="CENTER" contentDisplay="TOP" layoutX="17.0" layoutY="14.0" prefHeight="58.0" prefWidth="1424.0" text="Dark Novel Crawler">
+         <font>
+            <Font name="Bungee Inline" size="58.0" />
+         </font>
+      </Label>
+      <Button fx:id="reset" layoutX="1224.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
+      <Button fx:id="help" layoutX="1300.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
+      <Button fx:id="settings" layoutX="1376.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
+
+
+<!--Console-->
       <TextArea fx:id="console" layoutX="625.0" layoutY="91.0" prefHeight="770.0" prefWidth="816.0" />
+
+
+<!--Main Controls-->
+       <ComboBox fx:id="commandBox" layoutX="17.0" layoutY="91.0" onAction="#setcommandUI" prefHeight="31.0" prefWidth="589.0" value="Default - Download">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Download" />
+                   <String fx:value="Query" />
+                   <String fx:value="List Sources" />
+                   <String fx:value="Help" />
+                   <String fx:value="Version" />
+               </FXCollections>
+           </items>
+       </ComboBox>
       <TextField fx:id="urlField" layoutX="17.0" layoutY="144.0" prefHeight="31.0" prefWidth="589.0" promptText="Enter the link here" text="https://www.foxaholic.com/novel/ill-live-my-life-surrounded-by-monsters/" />
-      <TextField fx:id="outputField" editable="false" layoutX="17.0" layoutY="196.0" prefHeight="31.0" prefWidth="535.0" promptText="Click on &quot;...&quot; to select output folder" text="D:\Novels\ada" />
-      <Label fx:id="messageBar" layoutX="17.0" layoutY="869.0" prefHeight="31.0" prefWidth="1424.0" />
-      <ChoiceBox fx:id="commandBox" layoutX="17.0" layoutY="91.0" prefHeight="31.0" prefWidth="589.0" value="Download">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Query" />
-               <String fx:value="List Sources" />
-               <String fx:value="Help" />
-               <String fx:value="Version" />
-            </FXCollections>
-         </items>
-      </ChoiceBox>
-      <Button fx:id="folderSelector" layoutX="566.0" layoutY="196.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="40.0" text="..." />
-      <ChoiceBox fx:id="formatBox" layoutX="17.0" layoutY="249.0" prefHeight="31.0" prefWidth="589.0" value="Select Output Format">
+      <TextField fx:id="outputField" editable="false" layoutX="17.0" layoutY="196.0" prefHeight="31.0" prefWidth="535.0" promptText="Click on &quot;...&quot; to select output folder" text="D:\Tmp\New folder" />
+      <Button fx:id="folderSelector" layoutX="566.0" layoutY="196.0" mnemonicParsing="false" onAction="#openFolderChooser" prefHeight="31.0" prefWidth="40.0" text="..." />
+      <ChoiceBox fx:id="formatBox" layoutX="17.0" layoutY="249.0" prefHeight="31.0" prefWidth="589.0" value="Select Output Format : Default - TEXT">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="JSON" />
@@ -50,17 +66,26 @@
             </FXCollections>
          </items>
       </ChoiceBox>
+
+
+<!--Login Field-->
       <Pane layoutX="17.0" layoutY="304.0" prefHeight="96.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <TextField fx:id="emailField" layoutX="14.0" layoutY="16.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your email here" />
-            <PasswordField fx:id="passwordField" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your password here" />
+            <CheckBox fx:id="loginDummy" layoutX="444.0" layoutY="-10.0" mnemonicParsing="false" />
+            <CheckBox fx:id="loginfieldCheck" layoutX="444.0" layoutY="-10.0" mnemonicParsing="false" onAction="#loginPaneUI" />
+            <TextField fx:id="emailField" disable="true" layoutX="14.0" layoutY="16.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your email here" />
+            <PasswordField fx:id="passwordField" disable="true" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter your password here" />
          </children>
       </Pane>
-      <Button layoutX="482.0" layoutY="288.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" style="-fx-background-color: #F4F4F4;" text="Login Field" />
+      <Button fx:id="loginReset" layoutX="482.0" layoutY="288.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" style="-fx-background-color: #F4F4F4;" text="Login Field" />
+
+
+<!--Selector-->
       <Pane layoutX="17.0" layoutY="425.0" prefHeight="96.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <CheckBox fx:id="selectorCheck" layoutX="460.0" layoutY="-10.0" mnemonicParsing="false" />
-            <ComboBox fx:id="selectorBox" layoutX="14.0" layoutY="17.0" prefHeight="31.0" prefWidth="562.0" value="Deafult - All">
+             <CheckBox fx:id="selectorDummy" layoutX="460.0" layoutY="-10.0" mnemonicParsing="false" onAction="#selectorPaneUI" />
+            <CheckBox fx:id="selectorCheck" layoutX="460.0" layoutY="-10.0" mnemonicParsing="false" onAction="#selectorPaneUI" />
+            <ComboBox fx:id="selectorBox" disable="true" layoutX="14.0" layoutY="17.0" prefHeight="31.0" prefWidth="562.0" value="Default - All">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="All" />
@@ -73,42 +98,57 @@
                   </FXCollections>
                </items>
             </ComboBox>
-            <TextField fx:id="selectorField" layoutX="14.0" layoutY="55.0" prefHeight="31.0" prefWidth="562.0" promptText="Downloads all chapters" />
-         </children></Pane>
-      <Button layoutX="498.0" layoutY="410.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #F4F4F4;" text="Selector" />
-      <CheckBox fx:id="loginfieldCheck" layoutX="461.0" layoutY="294.0" mnemonicParsing="false" />
+            <TextField fx:id="selectorField" disable="true" layoutX="14.0" layoutY="55.0" prefHeight="31.0" prefWidth="562.0" promptText="Downloads all chapters" />
+         </children>
+      </Pane>
+      <Button fx:id="selectorReset" layoutX="498.0" layoutY="410.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" style="-fx-background-color: #F4F4F4;" text="Selector" />
+
+
+<!--File Packing-->
       <Pane layoutX="17.0" layoutY="543.0" prefHeight="58.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <RadioButton fx:id="singlefileRadio" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" selected="true" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Single">
+             <CheckBox fx:id="packDummy" layoutX="464.0" layoutY="-10.0" mnemonicParsing="false" onAction="#packPaneUI" />
+            <CheckBox fx:id="packCheck" layoutX="464.0" layoutY="-10.0" mnemonicParsing="false" onAction="#packPaneUI" />
+            <RadioButton fx:id="singlefileRadio" disable="true" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" selected="true" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Single">
                <toggleGroup>
                   <ToggleGroup fx:id="filegroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="multiplefileRadio" layoutX="326.0" layoutY="16.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Multiple" toggleGroup="$filegroup" />
-         </children></Pane>
-      <Label alignment="CENTER" contentDisplay="TOP" layoutX="17.0" layoutY="14.0" prefHeight="58.0" prefWidth="1424.0" text="Dark Novel Crawler">
-         <font>
-            <Font name="Bungee Inline" size="58.0" />
-         </font>
-      </Label>
+            <RadioButton fx:id="multiplefileRadio" disable="true" layoutX="326.0" layoutY="16.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Multiple" toggleGroup="$filegroup" />
+         </children>
+      </Pane>
+      <Button fx:id="packingReset" layoutX="502.0" layoutY="528.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #F4F4F4;" text="Packing" />
+
+
+<!--Overwrite Folder-->
       <Pane layoutX="17.0" layoutY="626.0" prefHeight="58.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <RadioButton fx:id="ignorefolderRadio" layoutX="326.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Ignore Existing Folder" />
-            <RadioButton fx:id="replacefolderRadio" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" selected="true" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Replace Existing Folder" />
-         </children></Pane>
-      <Button layoutX="502.0" layoutY="528.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #F4F4F4;" text="Packing" />
-      <CheckBox fx:id="packCheck" layoutX="482.0" layoutY="533.0" mnemonicParsing="false" />
-      <Button fx:id="settings" layoutX="1376.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
-      <Button fx:id="help" layoutX="1300.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
-      <Button layoutX="441.0" layoutY="611.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #F4F4F4;" text="Folder Overwriting" />
-      <CheckBox fx:id="overwriteCheck" layoutX="420.0" layoutY="616.0" mnemonicParsing="false" />
+             <CheckBox fx:id="overwriteDummy" layoutX="403.0" layoutY="-10.0" mnemonicParsing="false" onAction="#overwritePaneUI" />
+            <CheckBox fx:id="overwriteCheck" layoutX="403.0" layoutY="-10.0" mnemonicParsing="false" onAction="#overwritePaneUI" />
+            <RadioButton fx:id="ignorefolderRadio" disable="true" layoutX="326.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Ignore Existing Folder" />
+            <RadioButton fx:id="replacefolderRadio" disable="true" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="249.0" selected="true" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Replace Existing Folder" />
+         </children>
+      </Pane>
+      <Button fx:id="overwritingReset" layoutX="441.0" layoutY="611.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #F4F4F4;" text="Folder Overwriting" />
+
+
+<!--Output File Name-->
       <Pane layoutX="17.0" layoutY="705.0" prefHeight="58.0" prefWidth="589.0" style="-fx-border-color: black; -fx-border-style: solid; -fx-border-width: 2px;">
          <children>
-            <TextField fx:id="ofilenameField" layoutX="14.0" layoutY="17.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter a custom name for &quot;OutputFileName&quot;" />
+             <CheckBox fx:id="ofilenameDummy" layoutX="403.0" layoutY="-10.0" mnemonicParsing="false" onAction="#ofilePaneUI" />
+            <CheckBox fx:id="ofilenameCheck" layoutX="403.0" layoutY="-10.0" mnemonicParsing="false" onAction="#ofilePaneUI" />
+            <TextField fx:id="ofilenameField" disable="true" layoutX="14.0" layoutY="17.0" prefHeight="31.0" prefWidth="562.0" promptText="Enter a custom name for &quot;OutputFileName&quot;" />
          </children></Pane>
-      <Button layoutX="441.0" layoutY="690.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #F4F4F4;" text="Output File Name" />
-      <CheckBox fx:id="ofilenameCheck" layoutX="420.0" layoutY="695.0" mnemonicParsing="false" />
+      <Button fx:id="ofilenameReset" layoutX="441.0" layoutY="690.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" style="-fx-background-color: #F4F4F4;" text="Output File Name" />
+
+
+<!--Add Source-->
       <RadioButton fx:id="addsourceRadio" layoutX="17.0" layoutY="783.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="589.0" style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 5px;" text="Add Source URL at the end of file" />
-      <Button layoutX="1224.0" layoutY="14.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="65.0" />
+
+
+<!--Footer-->
+      <Button fx:id="runCommand" layoutX="17.0" layoutY="830.0" mnemonicParsing="false" onAction="#start" prefHeight="31.0" prefWidth="589.0" text="Initiate Command" />
+      <Label fx:id="messageBar" layoutX="17.0" layoutY="869.0" prefHeight="31.0" prefWidth="1424.0" />
+
    </children>
 </Pane>

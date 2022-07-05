@@ -21,7 +21,7 @@ public class LNCrawler extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LNCrawler.class.getResource("lightnovel-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1458, 904);
+        Scene scene = new Scene(fxmlLoader.load(), 1458, 912);
         stage.setResizable(false);
         stage.setTitle("Dark Novel Crawler");
         stage.setScene(scene);
